@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"debug": "^4.1.1",
-		"immer": "^5.0.1",
+		"immer": "^9.0.6",
 		"mitt": "^1.2.0",
 		"moon-core": "^0.1.1-alpha.0",
 		"redux": "^4.0.5",
