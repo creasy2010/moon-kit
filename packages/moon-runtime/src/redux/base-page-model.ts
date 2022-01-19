@@ -50,6 +50,7 @@ class BasePageModel<ModelData = any> {
    * @param param
    */
   commonChange = (...param: any) => {
+    debugger;
     this.emit(`${this.pageKey}_commonChange`, extraPathsValue(...param));
   };
 
