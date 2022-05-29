@@ -141,16 +141,16 @@ export default class Method {
             typeStr = item.getBasicTsType();
           }
           return `${item.comment ? "\n/*" + item.comment + "*/\n" : ""}
-          '${item.name}'${item.isRequired ? "" : "?"}:${typeStr}`;
+          param${item.isRequired ? "" : "?"}:T.${typeStr}`;
         })
         .join(";");
-      param = `param:{${typeStr}}`;
+      param = `${typeStr}`;
     }
     return param;
   }
 
   tplGetUrl(): string {
-    return `serverInfo.baseUrl+\`${this.url.replace(/{/g, "${param.")}\``;
+    return `'${this.url.replace(/{/g, "${param.")}'`;
   }
 
   tplGetBodyParam(): string {
@@ -161,7 +161,7 @@ export default class Method {
         // @ts-ignore
         paramItem[0].jsonSchema.$ref)
     ) {
-      return `param.${paramItem[0].name}`;
+      return `param`;
     } else {
       return `{${paramItem
         .map((item) => buildKeyValueStr(item.name))

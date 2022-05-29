@@ -1,6 +1,5 @@
-import sdk from "@api/sdk";
-const serverInfo = <%-JSON.stringify(webapiGroup.serverInfo) %>;
-const controllerName = "<%-webapiGroup.name %>";
+import http from "@/utils/http";
+import * as T from './model/type'
 
 <% webapiGroup.apis.forEach(apiItem=>{ %>
 
@@ -9,28 +8,17 @@ const controllerName = "<%-webapiGroup.name %>";
 * <%=apiItem.comment%>
 *
 */
-async function <%=apiItem.tplGetMethodName()%>(
+export function <%=apiItem.tplGetMethodName()%>(
 <%- apiItem.tplGetRequestParamContent() %>
-):Promise< <%= apiItem.tplGetResponseInterfaceName() %>> {
+):Promise< T.<%= apiItem.tplGetResponseInterfaceName() %>> {
 
-  const result = await sdk.<%=apiItem.tplGetMethodType()%>
-  <%-apiItem.responseSchema? "<"+Util.getTypeNameFromSchema(apiItem.responseSchema) +">":""%>(
+  return http.<%=apiItem.tplGetMethodType()%>
+  <%-apiItem.responseSchema? "<T."+Util.getTypeNameFromSchema(apiItem.responseSchema) +">":""%>(
   <%-apiItem.tplGetUrl()%>,
   <%-apiItem.tplGetBodyParam()%> ,
-  <%-apiItem.tplGetQueryParam()%>,
-  {serverInfo,controllerName}
+  {baseUrl: "<%= webapiGroup.serverInfo.baseUrl %>"}
   );
-  return result.data;
   }
   <% }) %>
 
-
-  export default {
-  <% webapiGroup.apis.forEach(apiItem=>{ %>
-  <%=apiItem.tplGetMethodName()%>,
-  <% }) %>
-  };
-
-
-
-  <%-tsDefinded%>
+ 

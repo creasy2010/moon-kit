@@ -52,6 +52,8 @@ export function getHandleFile({
     log("开始处理模板: ", _tplFilePath);
     let content = await dealCal(_tplContent.toString());
 
+    await fse.ensureDir(outDir);
+
     let saveOptions: IFileSaveOptions = {
       projectOutDir: "",
       tplPath,

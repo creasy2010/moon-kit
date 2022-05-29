@@ -96,16 +96,29 @@ export async function buildWebApi(context: IWebApiContext): Promise<string> {
   //本项目公共的ts定义;
   let apiPath = await fileHandle(
     "api.ts.ejs",
-    async (tplConent) => {
-      let conent: string = ejs.render(tplConent, {
+    async (tplContent) => {
+      let content: string = ejs.render(tplContent, {
         Util,
         webapiGroup,
-        tsDefinded,
+        // tsDefinded,
       });
 
-      return conent;
+      return content;
     },
-    { saveFilePath: webapiGroup.name + ".ts" }
+    { saveFilePath: webapiGroup.name + "/index.ts" }
+  );
+
+  await fileHandle(
+    "type.ts.ejs",
+    async (tplContent) => {
+      let content: string = ejs.render(tplContent, {
+        tsDefinded,
+      });
+      return content;
+    },
+    {
+      saveFilePath: webapiGroup.name + "/model/type.ts",
+    }
   );
 
   return apiPath;
