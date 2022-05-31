@@ -230,6 +230,9 @@ export async function genApi(context: {
           hookInstance.beforeApiCompile.call(apiItem);
           return apiItem;
         },
+        beforeTsCompile: (definitions) => {
+          hookInstance.beforeTypesCompile.call(definitions);
+        },
         resSchemaModify: async (
           schema: SchemaProps,
           apiItem: IWebApiDefinded,

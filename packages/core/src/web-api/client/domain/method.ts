@@ -140,8 +140,7 @@ export default class Method {
           if (item.isBasicType()) {
             typeStr = item.getBasicTsType();
           }
-          return `${item.comment ? "\n/*" + item.comment + "*/\n" : ""}
-          param${item.isRequired ? "" : "?"}:T.${typeStr}`;
+          return `param${item.isRequired ? "" : "?"}:T.${typeStr}`;
         })
         .join(";");
       param = `${typeStr}`;

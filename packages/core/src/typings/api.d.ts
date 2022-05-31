@@ -34,6 +34,7 @@ export interface IWebApiContext extends IFileSaveOpt {
   ) => Promise<SchemaProps>;
   isNeedMock?: (controller: string, method: string) => boolean;
   beforeCompile?: (apiItem: Method) => Promise<Method> | Method;
+  beforeTsCompile?: (definitions: { [name: string]: SchemaProps }) => void;
 }
 
 interface IJsonSchemaProps {

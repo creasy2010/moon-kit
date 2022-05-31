@@ -126,7 +126,7 @@ export async function buildWebApi(context: IWebApiContext): Promise<string> {
 
 async function generateTsDefined(context: IWebApiContext): Promise<string> {
   log(`ts定义信息: beg`);
-  let { webapiGroup, resSchemaModify } = context;
+  let { webapiGroup, resSchemaModify, beforeTsCompile } = context;
 
   let param2RespTypes = [];
 
@@ -177,6 +177,11 @@ async function generateTsDefined(context: IWebApiContext): Promise<string> {
   for (let i = 0, ilen = param2RespTypes.length; i < ilen; i++) {
     let item = param2RespTypes[i];
     context.webapiGroup.definitions[item.title] = item;
+  }
+
+  if (beforeTsCompile) {
+    log(`ts: 类型编译前处理`);
+    beforeTsCompile(context.webapiGroup.definitions);
   }
 
   let content = await genTsFromDefines({

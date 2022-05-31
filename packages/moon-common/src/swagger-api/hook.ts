@@ -67,6 +67,11 @@ export default class ApiCompileHooks {
   //单个api编译时
   beforeApiCompile = new SyncHook<IWebApiDefinded>(["IWebApiDefinded"]);
 
+  //types编辑转换前
+  beforeTypesCompile = new SyncHook<{ [name: string]: SchemaProps }>([
+    "definitions",
+  ]);
+
   //单个api response修改时
   onResponseSchema = new SyncHook(["responseSchema", "context"]);
 
